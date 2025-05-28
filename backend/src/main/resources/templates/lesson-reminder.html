@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Lesson Reminder</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9fafb;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            background-color: #ffffff;
+            margin: 30px auto;
+            padding: 20px 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border: 1px solid #e0e0e0;
+        }
+        h2 {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 8px;
+        }
+        p {
+            font-size: 16px;
+            line-height: 1.5;
+        }
+        strong {
+            color: #2c3e50;
+        }
+        .highlight {
+            color: #2980b9;
+            font-weight: bold;
+        }
+        .details {
+            background-color: #ecf0f1;
+            padding: 15px 20px;
+            border-radius: 6px;
+            margin: 20px 0;
+            border: 1px solid #bdc3c7;
+        }
+        .footer {
+            font-size: 14px;
+            color: #777;
+            margin-top: 30px;
+            border-top: 1px solid #ddd;
+            padding-top: 15px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Upcoming Lesson Alert</h2>
+        <p>Hello <strong th:text="${name}">User</strong>,</p>
+
+        <p>You have a lesson scheduled to start in <span class="highlight" th:text="${minutesLeft}">X</span> minutes.</p>
+
+        <div class="details">
+            <p><strong>Subject:</strong> <span th:text="${subject}">Sample Subject</span></p>
+            <p><strong>Date:</strong> <span th:text="${date}">YYYY-MM-DD</span></p>
+            <p><strong>Time:</strong> <span th:text="${time}">HH:mm - HH:mm</span></p>
+            <p><strong>Classroom:</strong> <span th:text="${classroom}">Room A2</span></p>
+        </div>
+
+        <p>Please be prepared.</p>
+        <p>Best regards,<br><strong>Teacher Scheduler</strong></p>
+
+        <div class="footer">
+            &copy; 2025 Teacher Scheduler. All rights reserved.
+        </div>
+    </div>
+</body>
+</html>
