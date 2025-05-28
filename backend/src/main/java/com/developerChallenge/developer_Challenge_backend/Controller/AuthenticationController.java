@@ -3,19 +3,19 @@ package com.developerChallenge.developer_Challenge_backend.Controller;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.developerChallenge.developer_Challenge_backend.DTOs.AuthenticationResponse;
 import com.developerChallenge.developer_Challenge_backend.Models.User;
 import com.developerChallenge.developer_Challenge_backend.Repositories.UserRepository;
 import com.developerChallenge.developer_Challenge_backend.Services.AuthenticationService;
 import com.developerChallenge.developer_Challenge_backend.Services.JwtService;
+
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:8081")
@@ -34,6 +34,12 @@ public class AuthenticationController {
         this.userRepository = userRepository;
     }
 
+    @Operation(summary = "Register a new teacher",
+               description = "Creates a new user account and returns a JWT token with user details")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "User registered successfully"),
+        @ApiResponse(responseCode = "400", description = "Invalid input or user already exists")
+    })
     @PostMapping("/register")
     public ResponseEntity<Map<String, Object>> register(@RequestBody User request) {
         AuthenticationResponse response = authenticationService.register(request);
@@ -45,6 +51,13 @@ public class AuthenticationController {
         return new ResponseEntity<>(body, HttpStatus.OK);
     }
 
+    @Operation(summary = "Login as a teacher",
+               description = "Authenticates a user and returns a JWT token with user details")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "User logged in successfully"),
+        @ApiResponse(responseCode = "401", description = "Invalid credentials"),
+        @ApiResponse(responseCode = "400", description = "Missing or invalid request body")
+    })
     @PostMapping("/login")
     public ResponseEntity<Map<String, Object>> login(@RequestBody User request) {
         AuthenticationResponse response = authenticationService.authenticate(request);
